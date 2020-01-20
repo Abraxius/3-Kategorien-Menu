@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\codeTest.cs" />
+    <Compile Include="Assets\Scripts\DropdownScript.cs" />
     <Compile Include="Assets\Scripts\GameData.cs" />
     <Compile Include="Assets\Scripts\JsonWrapper.cs" />
     <Compile Include="Assets\Scripts\Quests.cs" />
