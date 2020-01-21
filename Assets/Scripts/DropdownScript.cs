@@ -5,14 +5,14 @@ using UnityEngine;
 //Script der auf die verschiedenen Kategorien gelegt wird, verbindet die Prefabs mit dem Dropdown
 public class DropdownScript : MonoBehaviour
 {
-    codeTest hauptScript = new codeTest();
+    VariantScript hauptScript = new VariantScript();
 
     [SerializeField]
     List<GameObject> itemList = new List<GameObject>();
     [SerializeField]
     int kategorie;
 
-    GameData gameData = new GameData();
+    DataList gameData = new DataList();
 
     private List<string> temp = new List<string>();
 
@@ -25,18 +25,18 @@ public class DropdownScript : MonoBehaviour
         path = Application.dataPath + "/Config/" + filename;
 
         string contents = System.IO.File.ReadAllText(path);
-        gameData = JsonUtility.FromJson<GameData>(contents);
+        gameData = JsonUtility.FromJson<DataList>(contents);
 
         switch(kategorie)
         {
             case 0:
-                temp = gameData.kategorie1;
+                temp = gameData.category1;
                 break;
             case 1:
-                temp = gameData.kategorie2;
+                temp = gameData.category2;
                 break;
             case 2:
-                temp = gameData.kategorie3;
+                temp = gameData.category3;
                 break;
             default:
                 break;

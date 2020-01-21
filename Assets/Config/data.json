@@ -1,18 +1,18 @@
 {
-    "kategorie1": [
-        "Rote Kugel",
-        "Grüne Kugel",
-        "Blaue Kugel"
-    ],
-    "kategorie2": [
-        "Cyaner Würfel",
-        "Gelber Würfel",
-        "Magenta Würfel"
-    ],
-    "kategorie3": [
-        "Rosa Zylinder",
-        "Roter Zylinder",
-        "Lila Zylinder",
-        "Brauner Zylinder"
-    ]
+  "category1": [
+    "Rote Kugel",
+    "Grüne Kugel",
+    "Blaue Kugel"
+  ],
+  "category2": [
+    "Cyaner Würfel",
+    "Gelber Würfel",
+    "Magenta Würfel"
+  ],
+  "category3": [
+    "Rosa Zylinder",
+    "Roter Zylinder",
+    "Lila Zylinder",
+    "Brauner Zylinder"
+  ]
 }

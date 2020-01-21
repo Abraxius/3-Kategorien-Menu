@@ -4,14 +4,13 @@ using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
 
-public class codeTest : MonoBehaviour
+public class VariantScript : MonoBehaviour
 {
     private string filename = "data.json";
     //[HideInInspector]
     public string path = "";
 
-
-    private GameData gameData = new GameData();
+    private DataList dataList = new DataList();
 
     [SerializeField]
     private int maxKategorien = 3;
@@ -38,7 +37,7 @@ public class codeTest : MonoBehaviour
             if (System.IO.File.Exists(path))
             {
                 string contents = System.IO.File.ReadAllText(path);
-                gameData = JsonUtility.FromJson<GameData>(contents);
+                dataList = JsonUtility.FromJson<DataList>(contents);
 
                 for (int i = 0; i < maxKategorien; i++)
                 {
@@ -46,13 +45,13 @@ public class codeTest : MonoBehaviour
                     switch(i)
                     {
                         case 0:
-                            dropdownKategorie[i].AddOptions(gameData.kategorie1);
+                            dropdownKategorie[i].AddOptions(dataList.category1);
                             break;
                         case 1:
-                            dropdownKategorie[i].AddOptions(gameData.kategorie2);
+                            dropdownKategorie[i].AddOptions(dataList.category2);
                             break;
                         case 2:
-                            dropdownKategorie[i].AddOptions(gameData.kategorie3);
+                            dropdownKategorie[i].AddOptions(dataList.category3);
                             break;
                         default:
                             Debug.Log("Es sind nicht für alle Kategorien Varianten angelegt!");
@@ -63,7 +62,7 @@ public class codeTest : MonoBehaviour
             else
             {
                 Debug.Log("Die Json Datei konnte nicht gefunden werden.");
-                gameData = new GameData();
+                dataList = new DataList();
             }
         }
         catch (System.Exception ex)
