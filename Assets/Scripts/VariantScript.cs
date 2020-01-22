@@ -6,15 +6,14 @@ using UnityEngine.UI;
 
 public class VariantScript : MonoBehaviour
 {
-    private string filename = "data.json";
-    //[HideInInspector]
-    public string path = "";
+    string filename = "data.json";
+    string path = "";
 
-    private DataList dataList = new DataList();
+    DataList dataList = new DataList();
 
     [SerializeField]
-    private int maxCategory = 3;    //Wieviele Kategorien gibt es maximal? Sucht die zugehörige Anzahl Dropdown Menüs
-    private Dropdown[] dropdownCategory;    //Array für alle Dropdown Menüs
+    int maxCategory = 3;            //Wieviele Kategorien gibt es maximal? Sucht die zugehörige Anzahl Dropdown Menüs
+    Dropdown[] dropdownCategory;    //Array für alle Dropdown Menüs
 
     void Start()
     {
@@ -43,7 +42,7 @@ public class VariantScript : MonoBehaviour
                 for (int i = 0; i < maxCategory; i++)
                 {
                     dropdownCategory[i].ClearOptions();
-                    switch(i)
+                    switch (i)
                     {
                         case 0:
                             dropdownCategory[i].AddOptions(dataList.category1);

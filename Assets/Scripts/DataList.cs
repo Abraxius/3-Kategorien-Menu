@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Klasse mit Listen für jede Kategorie
 [System.Serializable]
 public class DataList 
 {
