@@ -5,48 +5,58 @@ using UnityEngine;
 //Script der auf die verschiedenen Kategorien gelegt wird, verbindet die Prefabs mit dem Dropdown
 public class DropdownScript : MonoBehaviour
 {
-    VariantScript hauptScript = new VariantScript();
+    VariantScript variantScript = new VariantScript();
 
     [SerializeField]
     List<GameObject> itemList = new List<GameObject>();
-    [SerializeField]
-    int kategorie;
+    
+    [SerializeField]    //Wichtig! Muss bei bsp. 3 Kategorien in Unity zwischen 0-2 definiert werden, 
+    int categoryNr;     //je nach dem welche Kategorie es ist. (Für Dropdown - GameObject Verknüpfung wichtig)
 
-    DataList gameData = new DataList();
+    DataList dataList = new DataList();
 
-    private List<string> temp = new List<string>();
+    List<string> tmpList = new List<string>();
 
-    private string filename = "data.json";
-    //[HideInInspector]
-    public string path = "";
+    string filename = "data.json";
+    string path = "";
 
-    private void Start()
+    void Start()
     {
         path = Application.dataPath + "/Config/" + filename;
 
         string contents = System.IO.File.ReadAllText(path);
-        gameData = JsonUtility.FromJson<DataList>(contents);
+        dataList = JsonUtility.FromJson<DataList>(contents);
 
-        switch(kategorie)
+        switch(categoryNr)
         {
             case 0:
-                temp = gameData.category1;
+                tmpList = dataList.category1;
                 break;
             case 1:
-                temp = gameData.category2;
+                tmpList = dataList.category2;
                 break;
             case 2:
-                temp = gameData.category3;
+                tmpList = dataList.category3;
                 break;
             default:
                 break;
         }
 
-        for (int i = 0; i < temp.Count; i++)
+        //Fügt selbstständig die Prefabs der GameObjects der ItemList hinzu, für die Dropdown Verknüpfung
+        for (int i = 0; i < tmpList.Count; i++)
         {
-            itemList.Add((GameObject)Resources.Load("Prefabs/" + temp[i]));
+            if (System.IO.File.Exists(Resources.Load("Prefabs/" + tmpList[i])))
+            {
+                itemList.Add((GameObject)Resources.Load("Prefabs/" + tmpList[i]));
+            } 
+            else 
+            {
+                Debug.Log("Das Prefab für eine Variante konnte nicht gefunden werden! Vllt falsch geschrieben?" + tmpList[i]);
+            }
+
         }
 
+        //Erstellt das oberste GameObject beim Start
         GameObject tmp = Instantiate(itemList[0], transform.position, Quaternion.identity);
         tmp.transform.SetParent(transform);
     }

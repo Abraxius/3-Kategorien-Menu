@@ -13,18 +13,19 @@ public class VariantScript : MonoBehaviour
     private DataList dataList = new DataList();
 
     [SerializeField]
-    private int maxKategorien = 3;
-    private Dropdown[] dropdownKategorie;
+    private int maxCategory = 3;    //Wieviele Kategorien gibt es maximal? Sucht die zugehörige Anzahl Dropdown Menüs
+    private Dropdown[] dropdownCategory;    //Array für alle Dropdown Menüs
 
     void Start()
     {
         path = Application.dataPath + "/Config/" + filename;
-        dropdownKategorie = new Dropdown[maxKategorien];
+        dropdownCategory = new Dropdown[maxCategory];
 
+        //Alle Dropdowns werden in ein Array gespeichert
         GameObject dropdownPanel = GameObject.Find("Dropdown Panel");
-        for (int i = 0; i < maxKategorien; i++)
+        for (int i = 0; i < maxCategory; i++)
         {
-            dropdownKategorie[i] = dropdownPanel.transform.GetChild(i).gameObject.GetComponent<Dropdown>();
+            dropdownCategory[i] = dropdownPanel.transform.GetChild(i).gameObject.GetComponent<Dropdown>();
         }
 
         ReadData();
@@ -39,22 +40,22 @@ public class VariantScript : MonoBehaviour
                 string contents = System.IO.File.ReadAllText(path);
                 dataList = JsonUtility.FromJson<DataList>(contents);
 
-                for (int i = 0; i < maxKategorien; i++)
+                for (int i = 0; i < maxCategory; i++)
                 {
-                    dropdownKategorie[i].ClearOptions();
+                    dropdownCategory[i].ClearOptions();
                     switch(i)
                     {
                         case 0:
-                            dropdownKategorie[i].AddOptions(dataList.category1);
+                            dropdownCategory[i].AddOptions(dataList.category1);
                             break;
                         case 1:
-                            dropdownKategorie[i].AddOptions(dataList.category2);
+                            dropdownCategory[i].AddOptions(dataList.category2);
                             break;
                         case 2:
-                            dropdownKategorie[i].AddOptions(dataList.category3);
+                            dropdownCategory[i].AddOptions(dataList.category3);
                             break;
                         default:
-                            Debug.Log("Es sind nicht für alle Kategorien Varianten angelegt!");
+                            Debug.Log("Es sind nicht für alle Kategorien Varianten in data.json angelegt!");
                             break;
                     }
                 }
