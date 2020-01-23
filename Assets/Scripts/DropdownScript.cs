@@ -14,9 +14,13 @@ public class DropdownScript : MonoBehaviour
     [SerializeField]
     List<GameObject> itemList = new List<GameObject>();
 
-    //Wichtig! Muss bei bsp. 3 Kategorien in Unity zwischen 0-2 definiert werden, je nach dem welche Kategorie es ist. (Für Dropdown - GameObject Verknüpfung wichtig)
+    //WICHTIG! Muss bei bsp. 3 Kategorien in Unity zwischen 0-2 definiert werden, je nach dem welche Kategorie es ist. (Für Dropdown - GameObject Verknüpfung wichtig)
     [SerializeField]    
-    int categoryNr;     
+    int categoryNr = 0;     
+
+    //Welche Child Nummer das Object ist, wird automatisch in CategoryAllocation.cs befüllt. Wichtig um das zugehörige Dropdown automatisch zu finden, falls eine Kategorie mehrmals vorkommen soll.
+    [HideInInspector]
+    public int childNr = 0;
 
     //Klasse in die die Daten aus data.json eingelesen werden
     DataList dataList = new DataList();     
@@ -31,7 +35,7 @@ public class DropdownScript : MonoBehaviour
         CreateGameObject();
     }
 
-    //Liest die passenden Daten aus data.json ein. Abhängig von der categoryNr die in Unity eingestellt werden muss
+    //Liest die passenden Daten aus data.json ein. Abhängig von der categoryNr die in Unity eingestellt werden muss!
     void ReadData()
     {
         try
@@ -42,7 +46,7 @@ public class DropdownScript : MonoBehaviour
                 string contents = System.IO.File.ReadAllText(path);
                 dataList = JsonUtility.FromJson<DataList>(contents);
 
-                //Weißt die jeweils richtig eingelesene Liste tmpList zu
+                //Weißt die jeweils zugewiesene gelesene Liste -> tmpList zu
                 switch (categoryNr)
                 {
                     case 0:
@@ -61,12 +65,9 @@ public class DropdownScript : MonoBehaviour
 
                 //Sucht das dazugehörige Dropdown Menü
                 GameObject dropdownPanel = GameObject.Find("Dropdown Panel");
-                Dropdown dropdownMenu = dropdownPanel.transform.GetChild(categoryNr).gameObject.GetComponent<Dropdown>();
+                Dropdown dropdownMenu = dropdownPanel.transform.GetChild(childNr).gameObject.GetComponent<Dropdown>();
 
-                //HINWEIS!!!
-                //bsp. wenn Kategorie 2 (Child 1) das Dropdown von Kategorie 1 bekommen soll, schreibt das Dropdown automatisch in (Child 0) statt (Child 1)
-
-                //Löscht das dazugehörige Dropdown Menü und fügt die Daten aus data.json hinzu
+                //Leert das dazugehörige Dropdown Menü und fügt die Daten aus data.json hinzu
                 dropdownMenu.ClearOptions();
                 dropdownMenu.AddOptions(tmpList);
             }
@@ -88,7 +89,8 @@ public class DropdownScript : MonoBehaviour
         //Fügt selbstständig die Prefabs der GameObjects der ItemList hinzu, für die Dropdown Verknüpfung
         for (int i = 0; i < tmpList.Count; i++)
         {
-            if (System.IO.File.Exists(Application.dataPath + "/Resources/Prefabs/" + tmpList[i] + ".prefab"))   //Kontrollabfrage ob das Prefab existiert
+            //Kontrollabfrage ob das Prefab existiert
+            if (System.IO.File.Exists(Application.dataPath + "/Resources/Prefabs/" + tmpList[i] + ".prefab"))   
             {
                 itemList.Add((GameObject)Resources.Load("Prefabs/" + tmpList[i]));
             }
@@ -99,7 +101,7 @@ public class DropdownScript : MonoBehaviour
 
         }
 
-        //Erstellt das oberste GameObject beim Start
+        //Erstellt das oberste GameObject in dem Dropdown beim Start
         GameObject tmp = Instantiate(itemList[0], transform.position, Quaternion.identity);
         tmp.transform.SetParent(transform);
     }
