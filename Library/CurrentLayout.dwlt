@@ -115,7 +115,7 @@ MonoBehaviour:
   m_MinSize: {x: 713, y: 498}
   m_MaxSize: {x: 18008, y: 14048}
   vertical: 0
-  controlID: 1916
+  controlID: 1168
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_MinSize: {x: 232, y: 498}
   m_MaxSize: {x: 10002, y: 14048}
   vertical: 1
-  controlID: 1917
+  controlID: 1115
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -483,7 +483,7 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: 0.0011898332, y: 0.015596512, z: 0.000018506837, w: -0.9998777}
     speed: 2
-    m_Value: {x: 0.0011898332, y: 0.015596512, z: 0.000018506837, w: -0.9998777}
+    m_Value: {x: 0.0011898332, y: 0.015596512, z: 0.000018506837, w: -0.99987763}
   m_Size:
     m_Target: 22
     speed: 2
@@ -563,20 +563,20 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts
+    - Assets/Resources/Prefabs
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts
+  - Assets/Resources/Prefabs
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\josti\Documents\GitHub\3DQR
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: fc2f0000
-    m_LastClickedID: 12284
-    m_ExpandedIDs: 00000000e62e00003c2f00009230000000ca9a3b
+    m_SelectedIDs: a20b0000
+    m_LastClickedID: 2978
+    m_ExpandedIDs: 0000000090090000fa090000a20b000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -604,7 +604,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: e629ffff
     m_LastClickedID: -54810
-    m_ExpandedIDs: 00000000e62e00003c2f00009230000000ca9a3b
+    m_ExpandedIDs: 0000000090090000fa090000a20b000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -631,7 +631,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: 92320000762c0000fc2b0000dc2b00001c2c0000ca36000006320000802f00006c3300008c2b0000944900006c4c000018310000e25000005e3900007437000020280100463b00000c560000763300001031000052360000203c000000000000e8360000e83b0000663e0000e63600007445000016390000d6380000ea5f0000e85f0000f2300000003100007a4000001c370000f83b0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -688,9 +688,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: fc2f0000
+      m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: aaf1ffff6e3100008831000014320000
+      m_ExpandedIDs: defbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 

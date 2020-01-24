@@ -99,6 +99,7 @@ public class DropdownScript : MonoBehaviour
             else
             {
                 Debug.Log("Das Prefab für die Variante " + tmpList[i] + " konnte in /Resources/Prefabs/.. nicht gefunden werden! Vllt falsch geschrieben?");
+                Debug.Log("Ohne das gleichnamige Prefab, wird es einen Error bei der Auswahl geben!");
             }
 
         }
