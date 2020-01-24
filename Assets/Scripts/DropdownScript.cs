@@ -18,7 +18,7 @@ public class DropdownScript : MonoBehaviour
     [SerializeField]    
     int categoryNr = 0;     
 
-    //Welche Child Nummer das Object ist, wird automatisch in CategoryAllocation.cs befüllt. Wichtig um das zugehörige Dropdown automatisch zu finden, falls eine Kategorie mehrmals vorkommen soll.
+    //Welche ChildNr das Object ist, wird automatisch in CategoryAllocation.cs befüllt. Wichtig um das zugehörige Dropdown automatisch zu finden, falls eine Kategorie mehrmals vorkommen soll.
     [HideInInspector]
     public int childNr = 0;
 
@@ -32,7 +32,6 @@ public class DropdownScript : MonoBehaviour
         path = Application.dataPath + "/Config/" + filename;
 
         ReadData();
-        CreateGameObject();
     }
 
     //Liest die passenden Daten aus data.json ein. Abhängig von der categoryNr die in Unity eingestellt werden muss!
@@ -70,10 +69,13 @@ public class DropdownScript : MonoBehaviour
                 //Leert das dazugehörige Dropdown Menü und fügt die Daten aus data.json hinzu
                 dropdownMenu.ClearOptions();
                 dropdownMenu.AddOptions(tmpList);
+
+                //GameObjects Methode
+                CreateGameObject();
             }
             else
             {
-                Debug.Log("Die Json Datei konnte nicht gefunden werden.");
+                Debug.Log("Config/data.json konnte nicht gefunden werden!");
                 dataList = new DataList();
             }
         }

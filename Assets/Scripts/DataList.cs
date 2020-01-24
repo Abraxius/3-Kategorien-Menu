@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//Klasse mit Listen für jede Kategorie
+//Klasse mit Listen für jede Kategorie. Bei mehr als 3 Kategorien muss Sie um mehr Listen erweitert werden
 [System.Serializable]
 public class DataList 
 {

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//Klasse die automatisch die CategoryNr den Kategorien zuweisst um Fehler zu verhindern bzw. die Arbeitsschritte zu senken
-//Für Erweiterungen müssen hier keine Änderungen vorgenommen werden
+//Klasse die automatisch die ChildNr den Kategorien zuweisst um Fehler zu verhindern bzw. die Arbeitsschritte zu senken
+//ChildNr wird für Dropdown Zuweisung benötigt. Für Erweiterungen müssen hier keine Änderungen vorgenommen werden
 public class CategoryAllocation : MonoBehaviour
 {
     int maxChild;
