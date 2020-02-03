@@ -2020,7 +2020,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 887666281}
-  - component: {fileID: 887666282}
   m_Layer: 0
   m_Name: Kategorien
   m_TagString: Untagged
@@ -2045,18 +2044,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &887666282
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 887666280}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39bca14ec5b86d1e98791853d19e54a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &929090635
 GameObject:
   m_ObjectHideFlags: 0
@@ -2471,9 +2458,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c51c1b0ab21d69149ad09be3a7a40bed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemList: []
   categoryNr: 0
-  childNr: 0
+  variantenList: []
+  dropdownGameobject: {fileID: 2135969831}
 --- !u!1 &1304478069
 GameObject:
   m_ObjectHideFlags: 0
@@ -2828,9 +2815,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c51c1b0ab21d69149ad09be3a7a40bed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemList: []
   categoryNr: 1
-  childNr: 0
+  variantenList: []
+  dropdownGameobject: {fileID: 849487918}
 --- !u!1 &1438022296
 GameObject:
   m_ObjectHideFlags: 0
@@ -3541,9 +3528,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c51c1b0ab21d69149ad09be3a7a40bed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemList: []
   categoryNr: 2
-  childNr: 0
+  variantenList: []
+  dropdownGameobject: {fileID: 1781284511}
 --- !u!1 &2025420181
 GameObject:
   m_ObjectHideFlags: 0

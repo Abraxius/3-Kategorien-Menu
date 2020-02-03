@@ -1,52 +1,50 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-//Script der auf die verschiedenen Kategorien gelegt wird, verbindet die Prefabs mit dem Dropdown und liest die Daten ein
+//Script der auf die verschiedenen Kategorien gelegt wird, fügt die Prefabs einer List hinzu und verbindet diese mit dem Dropdown. Ebenso liest es die Daten ein
 public class DropdownScript : MonoBehaviour
 {
-    //Json Datei
-    string filename = "data.json";
-    string path = "";
+    private string jsonPath;
+    private string jsonPathComplete;
 
-    //Liste mit verschiedenen GameObject Varianten der Kategorie
+    private string prefabFolderPath;
+    private string prefabFolderPathComplete;
+
+    //WICHTIG! Muss bei bsp. 3 Kategorien in Unity zwischen 0-2 definiert werden, je nach dem welche Kategorie es ist. 
     [SerializeField]
-    List<GameObject> itemList = new List<GameObject>();
+    private int categoryNr = 0;
+ 
+    [SerializeField]
+    private List<GameObject> variantenList = new List<GameObject>();
 
-    //WICHTIG! Muss bei bsp. 3 Kategorien in Unity zwischen 0-2 definiert werden, je nach dem welche Kategorie es ist. (Für Dropdown - GameObject Verknüpfung wichtig)
-    [SerializeField]    
-    int categoryNr = 0;     
+    [SerializeField]
+    private Dropdown dropdownGameobject;
 
-    //Welche ChildNr das Object ist, wird automatisch in CategoryAllocation.cs befüllt. Wichtig um das zugehörige Dropdown automatisch zu finden, falls eine Kategorie mehrmals vorkommen soll.
-    [HideInInspector]
-    public int childNr = 0;
-
-    //Klasse in die die Daten aus data.json eingelesen werden
-    DataList dataList = new DataList();     
-
-    List<string> tmpList = new List<string>();
+    private DataList dataList = new DataList();
+    private List<string> tmpList = new List<string>();
 
     void Start()
     {
-        path = Application.dataPath + "/Config/" + filename;
+        jsonPath = "Config/data.json";
+        prefabFolderPath = "Prefabs/";
+
+        jsonPathComplete = Application.dataPath + "/" + jsonPath;
+        prefabFolderPathComplete = Application.dataPath + "/Resources/" + prefabFolderPath;
 
         ReadData();
     }
 
-    //Liest die passenden Daten aus data.json ein. Abhängig von der categoryNr die in Unity eingestellt werden muss!
     void ReadData()
     {
         try
         {
-            if (System.IO.File.Exists(path))
+            if (System.IO.File.Exists(jsonPathComplete))
             {
-                //Liest Json ein
-                string contents = System.IO.File.ReadAllText(path);
+                string contents = System.IO.File.ReadAllText(jsonPathComplete);
                 dataList = JsonUtility.FromJson<DataList>(contents);
 
-                //Weißt die jeweils zugewiesene gelesene Liste -> tmpList zu
-                switch (categoryNr)
+                switch (categoryNr) 
                 {
                     case 0:
                         tmpList = dataList.category1;
@@ -62,20 +60,14 @@ public class DropdownScript : MonoBehaviour
                         break;
                 }
 
-                //Sucht das dazugehörige Dropdown Menü
-                GameObject dropdownPanel = GameObject.Find("Dropdown Panel");
-                Dropdown dropdownMenu = dropdownPanel.transform.GetChild(childNr).gameObject.GetComponent<Dropdown>();
+                dropdownGameobject.ClearOptions();
+                dropdownGameobject.AddOptions(tmpList);
 
-                //Leert das dazugehörige Dropdown Menü und fügt die Daten aus data.json hinzu
-                dropdownMenu.ClearOptions();
-                dropdownMenu.AddOptions(tmpList);
-
-                //GameObjects Methode
                 CreateGameObject();
             }
             else
             {
-                Debug.Log("Config/data.json konnte nicht gefunden werden!");
+                Debug.Log("data.json konnte nicht gefunden werden!");
                 dataList = new DataList();
             }
         }
@@ -85,37 +77,31 @@ public class DropdownScript : MonoBehaviour
         }
     }
 
-    //Methode für die GameObjects 
     void CreateGameObject()
     {
-        //Fügt selbstständig die Prefabs der GameObjects der ItemList hinzu, für die Dropdown Verknüpfung
         for (int i = 0; i < tmpList.Count; i++)
         {
-            //Kontrollabfrage ob das Prefab existiert
-            if (System.IO.File.Exists(Application.dataPath + "/Resources/Prefabs/" + tmpList[i] + ".prefab"))   
+            if (System.IO.File.Exists(prefabFolderPathComplete + tmpList[i] + ".prefab"))   
             {
-                itemList.Add((GameObject)Resources.Load("Prefabs/" + tmpList[i]));
+                variantenList.Add((GameObject)Resources.Load(prefabFolderPath + tmpList[i]));
             }
             else
             {
-                Debug.Log("Das Prefab für die Variante " + tmpList[i] + " konnte in /Resources/Prefabs/.. nicht gefunden werden! Vllt falsch geschrieben?");
+                Debug.Log("Das Prefab für die Variante " + tmpList[i] + " konnte in /Resources/" + prefabFolderPath + ".. nicht gefunden werden! Vllt falsch geschrieben?");
                 Debug.Log("Ohne das gleichnamige Prefab, wird es einen Error bei der Auswahl geben!");
             }
-
         }
 
-        //Erstellt das oberste GameObject in dem Dropdown beim Start
-        GameObject tmp = Instantiate(itemList[0], transform.position, Quaternion.identity);
+        GameObject tmp = Instantiate(variantenList[0], transform.position, Quaternion.identity);
         tmp.transform.SetParent(transform);
     }
 
-    //Dropdown - GameObject Verknüpfungs Methode
     public void HandleInputData(int val)
     {
         GameObject tmp = transform.GetChild(0).gameObject;
         Destroy(tmp);
 
-        tmp = Instantiate(itemList[val], transform.position, Quaternion.identity);
+        tmp = Instantiate(variantenList[val], transform.position, Quaternion.identity);
 
         tmp.transform.SetParent(transform);
     }
