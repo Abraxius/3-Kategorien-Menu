@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class DropdownScript : MonoBehaviour
 {
     private string jsonPath;
-    private string prefabFolderPathFromResources;
+    private string prefabFolderPath;
     private string resourceFolderPathComplete;
 
     //WICHTIG! Muss bei bsp. 3 Kategorien in Unity zwischen 0-2 definiert werden, je nach dem welche Kategorie es ist. 
@@ -24,10 +24,10 @@ public class DropdownScript : MonoBehaviour
 
     private void Start()
     {
-        prefabFolderPathFromResources = "Prefabs/";                                 
+        prefabFolderPath = "Prefabs/";                                 
         jsonPath = Application.dataPath + "/Config/data.json"; 
 
-        resourceFolderPathComplete = Application.dataPath + "/Resources/" + prefabFolderPathFromResources;
+        resourceFolderPathComplete = Application.dataPath + "/Resources/" + prefabFolderPath;
 
         ReadVariantsFromJsonToDropdown();
     }
@@ -79,11 +79,11 @@ public class DropdownScript : MonoBehaviour
         foreach(string variant in selectCategoryList) {
             if (System.IO.File.Exists(resourceFolderPathComplete + variant + ".prefab"))   
             {
-                variantsList.Add((GameObject)Resources.Load(prefabFolderPathFromResources + variant));
+                variantsList.Add((GameObject)Resources.Load(prefabFolderPath + variant));
             }    
             else
             {
-                Debug.Log("Das Prefab für die Variante " + variant + " konnte in /Resources/" + prefabFolderPathFromResources + ".. nicht gefunden werden! Vllt falsch geschrieben?");
+                Debug.Log("Das Prefab für die Variante " + variant + " konnte in /Resources/" + prefabFolderPath + ".. nicht gefunden werden! Vllt falsch geschrieben?");
                 Debug.Log("Ohne das gleichnamige Prefab, wird es einen Error bei der Auswahl geben!");
             }      
         }
@@ -96,7 +96,7 @@ public class DropdownScript : MonoBehaviour
         defaultVariant.transform.SetParent(transform);
     }
 
-    //Wird in Unity bei den Dropdowns aufgerufen, wenn eine Variante ausgewählt wird
+    //Wird in Unity bei den Dropdowns aufgerufen, wenn eine andere Variante ausgewählt wird
     public void OnDropdownSelection(int selectedValue)  
     {
         GameObject activeVariant = transform.GetChild(0).gameObject;
