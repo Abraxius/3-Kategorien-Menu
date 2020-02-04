@@ -5,114 +5,105 @@ using UnityEngine.UI;
 //Script der auf die verschiedenen Kategorien gelegt wird, fügt die Prefabs einer List hinzu und verbindet diese mit dem Dropdown. Ebenso liest es die Daten ein
 public class DropdownScript : MonoBehaviour
 {
-    //private string jsonPath; sinnlos das zu trennen, da es nicht einzeln benutzt wird
-    private string jsonPathComplete;
-
-    private string prefabFolderPath;
-    private string prefabFolderPathComplete;
+    private string jsonPath;
+    private string prefabFolderPathFromResources;
+    private string resourceFolderPathComplete;
 
     //WICHTIG! Muss bei bsp. 3 Kategorien in Unity zwischen 0-2 definiert werden, je nach dem welche Kategorie es ist. 
     [SerializeField]
-    private int categoryNr = 0; //nr = Number ändern!
+    private int categoryNumber = 0; 
  
     [SerializeField]
-    private List<GameObject> variantenList = new List<GameObject>();   //variantsList
+    private Dropdown dropdownUI;
 
     [SerializeField]
-    private Dropdown dropdownGameobject;
+    private List<GameObject> variantsList = new List<GameObject>();   
+    private List<string> selectCategoryList = new List<string>();  
 
-    private DataList dataList = new DataList(); //TODO productList = name enthält Kategorien als Listen
-    private List<string> tmpList = new List<string>();  //TODO selectedCategoryList
+    private ProductList productList = new ProductList();
 
-    void Start()
+    private void Start()
     {
-        prefabFolderPath = "Prefabs/";                                  //
-        jsonPathComplete = Application.dataPath + "/Config/data.json";  //TODO Umbenennen
+        prefabFolderPathFromResources = "Prefabs/";                                 
+        jsonPath = Application.dataPath + "/Config/data.json"; 
 
-        prefabFolderPathComplete = Application.dataPath + "/Resources/" + prefabFolderPath;
-        //ResourceFolderPathComplete
-        ReadData();
+        resourceFolderPathComplete = Application.dataPath + "/Resources/" + prefabFolderPathFromResources;
+
+        ReadVariantsFromJsonToDropdown();
     }
-
-    //Umbenennen ReadDataFromJsonToDropdown     
-    void ReadData()
+   
+    private void ReadVariantsFromJsonToDropdown()
     {
         try
         {
-            if (System.IO.File.Exists(jsonPathComplete))
+            if (System.IO.File.Exists(jsonPath))
             {
-                string contents = System.IO.File.ReadAllText(jsonPathComplete);
-                dataList = JsonUtility.FromJson<DataList>(contents);
+                string jsonContents = System.IO.File.ReadAllText(jsonPath);
+                productList = JsonUtility.FromJson<ProductList>(jsonContents);
 
-                switch (categoryNr) 
+                switch (categoryNumber) 
                 {
                     case 0:
-                        tmpList = dataList.category1;
+                        selectCategoryList = productList.categoryList1;
                         break;
                     case 1:
-                        tmpList = dataList.category2;
+                        selectCategoryList = productList.categoryList2;
                         break;
                     case 2:
-                        tmpList = dataList.category3;
+                        selectCategoryList = productList.categoryList3;
                         break;
                     default:
-                        Debug.Log("DropdownScript.cs muss noch um die Kategorie " + categoryNr + " erweitert werden!");
+                        Debug.Log("DropdownScript.cs muss noch um die Kategorie " + categoryNumber + " erweitert werden!");
                         break;
                 }
 
-                dropdownGameobject.ClearOptions();
-                dropdownGameobject.AddOptions(tmpList);
+                dropdownUI.ClearOptions();
+                dropdownUI.AddOptions(selectCategoryList);
 
-                CreateGameObject();
+                LoadAllAvailablePrefabs();
             }
             else
             {
                 Debug.Log("data.json konnte nicht gefunden werden!");
-                dataList = new DataList();
+                productList = new ProductList();
             }
         }
-        catch (System.Exception ex)
+        catch (System.Exception exception)
         {
-            Debug.Log(ex.Message);  //exaption Message
+            Debug.Log(exception.Message);  
         }
     }
 
-    //TODO LoadAllAvabualPrefabs umbenennen 
-    void CreateGameObject()
+    private void LoadAllAvailablePrefabs()
     {
-        //TODO foreach (string name in Liste) statt FOR schlefie
-        //foreach(GameObject tmp in tmpListe) - statt for 
-        for (int i = 0; i < tmpList.Count; i++)
-        {
-            if (System.IO.File.Exists(prefabFolderPathComplete + tmpList[i] + ".prefab"))   
+        foreach(string variant in selectCategoryList) {
+            if (System.IO.File.Exists(resourceFolderPathComplete + variant + ".prefab"))   
             {
-                variantenList.Add((GameObject)Resources.Load(prefabFolderPath + tmpList[i]));
-            }
+                variantsList.Add((GameObject)Resources.Load(prefabFolderPathFromResources + variant));
+            }    
             else
             {
-                //TODO Brauchst du nicht zwangsweise! Eins reicht? hmm
-                Debug.Log("Das Prefab für die Variante " + tmpList[i] + " konnte in /Resources/" + prefabFolderPath + ".. nicht gefunden werden! Vllt falsch geschrieben?");
+                Debug.Log("Das Prefab für die Variante " + variant + " konnte in /Resources/" + prefabFolderPathFromResources + ".. nicht gefunden werden! Vllt falsch geschrieben?");
                 Debug.Log("Ohne das gleichnamige Prefab, wird es einen Error bei der Auswahl geben!");
-            }
+            }      
         }
 
-        //Auslagern in eine extra Methode oder in den Start(dann überprüfen ob es fertig geladen ist)
-        //InstantiateDefaultVariant() nennen?
-        //tmp - defaultVariant 
-        GameObject tmp = Instantiate(variantenList[0], transform.position, Quaternion.identity);
-        tmp.transform.SetParent(transform);
+        InstantiateDefaultVariant();
     }
 
-    //TODO Kommentar für diese Methode, dass Sie in Unity verwendet wird
-    //HandleDropdownInputData - OnDropdownSelection
-    public void HandleInputData(int val)    //TODO val - selectedValue
+    private void InstantiateDefaultVariant() {
+        GameObject defaultVariant = Instantiate(variantsList[0], transform.position, Quaternion.identity);
+        defaultVariant.transform.SetParent(transform);
+    }
+
+    //Wird in Unity bei den Dropdowns aufgerufen, wenn eine Variante ausgewählt wird
+    public void OnDropdownSelection(int selectedValue)  
     {
-        //TODO tmp = activeVariant
-        GameObject tmp = transform.GetChild(0).gameObject;
-        Destroy(tmp);
+        GameObject activeVariant = transform.GetChild(0).gameObject;
+        Destroy(activeVariant);
 
-        tmp = Instantiate(variantenList[val], transform.position, Quaternion.identity);
+        activeVariant = Instantiate(variantsList[selectedValue], transform.position, Quaternion.identity);
 
-        tmp.transform.SetParent(transform);
+        activeVariant.transform.SetParent(transform);
     }
 }

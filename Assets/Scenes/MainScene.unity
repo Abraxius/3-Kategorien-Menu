@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1889,7 +1889,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1424528066}
-        m_MethodName: HandleInputData
+        m_MethodName: OnDropdownSelection
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2458,9 +2458,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c51c1b0ab21d69149ad09be3a7a40bed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  categoryNr: 0
-  variantenList: []
-  dropdownGameobject: {fileID: 2135969831}
+  categoryNumber: 0
+  dropdownUI: {fileID: 2135969831}
+  variantsList: []
 --- !u!1 &1304478069
 GameObject:
   m_ObjectHideFlags: 0
@@ -2815,9 +2815,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c51c1b0ab21d69149ad09be3a7a40bed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  categoryNr: 1
-  variantenList: []
-  dropdownGameobject: {fileID: 849487918}
+  categoryNumber: 1
+  dropdownUI: {fileID: 849487918}
+  variantsList: []
 --- !u!1 &1438022296
 GameObject:
   m_ObjectHideFlags: 0
@@ -3269,7 +3269,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1990052537}
-        m_MethodName: HandleInputData
+        m_MethodName: OnDropdownSelection
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3528,9 +3528,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c51c1b0ab21d69149ad09be3a7a40bed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  categoryNr: 2
-  variantenList: []
-  dropdownGameobject: {fileID: 1781284511}
+  categoryNumber: 2
+  dropdownUI: {fileID: 1781284511}
+  variantsList: []
 --- !u!1 &2025420181
 GameObject:
   m_ObjectHideFlags: 0
@@ -3776,7 +3776,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1277519905}
-        m_MethodName: HandleInputData
+        m_MethodName: OnDropdownSelection
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

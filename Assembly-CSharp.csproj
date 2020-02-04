@@ -53,8 +53,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\DataList.cs" />
      <Compile Include="Assets\Scripts\DropdownScript.cs" />
+     <Compile Include="Assets\Scripts\ProductList.cs" />
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>/home/josti/Dokumente/GitHub/3DQR/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>

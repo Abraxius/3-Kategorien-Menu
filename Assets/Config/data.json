@@ -1,15 +1,15 @@
 {
-  "category1": [
+  "categoryList1": [
     "Rote Kugel",
     "Grüne Kugel",
     "Blaue Kugel"
   ],
-  "category2": [
+  "categoryList2": [
     "Cyaner Würfel",
     "Gelber Würfel",
     "Magenta Würfel"
   ],
-  "category3": [
+  "categoryList3": [
     "Rosa Zylinder",
     "Roter Zylinder",
     "Lila Zylinder",
